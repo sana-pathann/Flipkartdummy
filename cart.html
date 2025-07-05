@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<style>
+    nav{
+        margin-left: 0px;
+        margin-top: -10px;
+        width: 100%;
+        height: 50px;
+        position: fixed;
+    }
+    nav img{
+        height: 30px;
+        width: 70px;
+        margin-left: 200px;
+    }
+    #cartItems{
+        margin-left: 110px;
+        gap: 10px;
+        background-color: #ddd;
+        width: 800px;
+        padding: 20px;
+    }
+    #add{
+       
+        top: 200px;
+        padding-top: 50px;
+        padding: 20px;
+        height:310px;
+        width: 460px;
+      
+    }
+    .remove-button {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 10px;
+       
+    }
+
+    .remove-button:hover {
+        background-color: #c0392b;
+    }
+    .it{
+        border-top: 2px #fff;
+    }
+</style>
+<body>
+ 
+    <nav style="background-color: #2874f0;">
+        <div class="bar" onclick="home()"><img src="flipkart-plus_8d85f4.png" alt="Logo"></div>
+        <div style="background-color: #fff; margin-left: 60px; border-radius: 3px;" class="barr">
+            <input placeholder="Search for Products, Brand and More" style="font-size: 20px;">
+            <i class="fa-solid fa-magnifying-glass" style="color:#2874f0;"></i>
+        </div>
+        <div onclick="redirectToLogin()" style="color: #fff; margin-left: 60px;" class="bar">
+            <i style="color: #fff;" class="fa-solid fa-user"></i> Login
+        </div>
+        <div></div>
+    </nav><br>
+    
+    <h1>My Cart</h1>
+    <div style="display: flex; gap: 30px;">
+        <div id="cartItems"></div>
+        <div id="add" style="font-size: 20px; background-color: #ddd;">
+            <h3 style="color: gray;">PRICE DETAILS</h3>
+            <h5>Total Items: <span id="totalItems">0</span></h5>
+            <h5>Total Discount: <span id="totalDiscount">$0.00</span></h5>
+            <h5>Delivery Charges: Free</h5>
+            <h5>Total Amount: <span id="totalAmount">$0.00</span></h5>
+            <button class="button2" style="width: 100%; border-radius: 9px;">Buy Now</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartContainer = document.getElementById('cartItems');
+            const totalItemsElement = document.getElementById('totalItems');
+            const totalDiscountElement = document.getElementById('totalDiscount');
+            const totalAmountElement = document.getElementById('totalAmount');
+
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let total = 0;
+            let totalItems = 0;
+            let totalDiscount = 0;
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = '<h3>Your cart is empty.</h3>';
+            } else {
+                cart.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('crt');
+
+                    itemElement.innerHTML = `
+                        <div class="it">
+                            ${item.image}
+                            <h3>${item.title}</h3>
+                            <p>Price: $${item.price}</p>
+                            <p>Product ID: ${item.id}</p>
+                            <button class="remove-button" data-id="${item.id}">Remove item</button>
+                        </div>
+                    `;
+                    cartContainer.appendChild(itemElement);
+                    total += item.price;
+                    totalItems++;
+                    if (item.discountPercentage) {
+                        const discountAmount = (item.price * item.discountPercentage) / 100;
+                        totalDiscount += discountAmount;
+                    }
+                    const removeButton = itemElement.querySelector('.remove-button');
+                    removeButton.addEventListener('click', () => removeItem(item.id));
+                });
+            }
+            totalItemsElement.textContent = totalItems;
+            totalDiscountElement.textContent = `${totalDiscount.toFixed(2)}`;
+            totalAmountElement.textContent = `${(total - totalDiscount).toFixed(2)}`;
+            function removeItem(itemId) {
+                cart = cart.filter(item => item.id !== itemId);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                window.location.reload();
+            }
+        });
+    </script>
+    
+</body>
+</html>

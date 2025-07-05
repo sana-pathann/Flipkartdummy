@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        
+        input{
+            border-radius: 5px;
+            width: 560px;
+            height: 30px;
+            border: none;
+            background-color:azure;
+        }
+        nav{
+    margin-left: 40px;
+        display: flex;
+        gap: 30px;
+        font-size: 20px;
+        align-items: center;
+        position: static;
+        }
+        i{
+            margin-right: 10px ;
+        }
+        .dot {
+            width: 6px;
+            height: 6px;
+            background-color: #333;
+            border-radius: 92%;
+            margin: 1px 0;
+            margin-left: 100px;
+        }
+        .cat{
+            display: flex;
+            align-items: center;
+            gap: 100px;
+            margin-left: 400px;
+            margin-top: 30px;
+        }
+        .beauty{
+            display: flex;
+    flex-direction: column; 
+    align-items: center;
+    cursor: pointer; 
+    
+        }
+       
+        .carousel {
+            overflow: hidden;
+            width: 100%; 
+            height: 300px; 
+            position: relative;
+        }
+        
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-images img {
+            width: 100%;
+            display: block;
+        }
+        
+        .active {
+            display: block;
+        }
+        .best{
+          display: flex;
+        }
+        .best img{
+            width:33.3%;
+        
+        }
+.hover{
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.loggg{
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+.loggg button{
+    display: block;
+    width: 100%;
+    color: black;
+    width: 170px;
+    padding: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.loggg button:hover {
+    background-color:#2874f0;
+    color: #fff;
+}
+
+.hover:hover .loggg {
+    display: block;
+}
+
+
+    </style>
+    <nav style="margin-left: 150px;">
+        <div class="bar"><img src="Screenshot_24-10-2024_17218_.jpeg"></div>
+        <div class="bar"> <input id="searchInput" oninput="filterItems()"  placeholder="Search for Products, brand and more" style="font-size: 20px;  background-color: #fff; "><i class="fa-solid fa-magnifying-glass" id="searchButton" style="color: gray;"></i> </div>
+      <div class="hover">
+        
+        <h5 style="color:#2874f0;"><i class="fa-solid fa-user"></i>Login</h5>   
+        <div class="loggg" id="loggg" >  
+                <button onclick="redirectToLogin()">Login  </button>
+               <button onclick="reverse()">Signup</button>
+                <button onclick="profile()">My Profile</button>
+                <button>Flipkart Plus Zone</button>
+                <button>Orders</button>
+                <button onclick="wish()">Wishlist</button>
+                <button>Rewards</button>
+                <button>Gift Cards</button>
+                <button onclick="logout()">Log Out</button>
+            </div>
+        </div>
+        
+        <div class="bar" onclick="cart()"><i class="fa-solid fa-cart-shopping"></i>Cart</div>
+        <div class="bar"><i class="fa-solid fa-shop"></i>  Become a Seller</div>
+       <div class="hover"> <div class="vertical-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="loggg" >  
+            <button>Notification Preferences</button>
+            <button>Customer Care</button>
+            <button>Advertise</button>
+            <button>Download App</button>
+        </div>
+        </div>
+    </nav>
+    <div class="cat">
+        <div onclick="b()" class="beauty"><img src="beauty.webp" alt=""><br>Beauty</div>
+        <div onclick="fur()" class="beauty"><img src="furniture.webp" alt="">Furniture</div>
+        <div onclick="gr()" class="beauty"><img src="grocery.webp" alt="">Grocery</div>
+        <div onclick="fr()" class="beauty"><img src="perfumes.webp" alt="">Fragrances</div>
+        <div onclick="el()" class="beauty"><img src="electronics.webp" alt="">Electronics</div>
+    </div>
+    <div class="spinner" id="spinner"></div>
+    <div id="results" style="display: flex; gap: 70px; border:#333"></div>
+    <div id="modal" class="modal" style="display: none;  background-color: #fff; width:100%;  margin-top: 100px;">
+ 
+        <div id="modalContent" style="display:flex; gap: 100px; padding: 200px;"  >
+    <div class="1" style="display: flex; flex-direction: column; ">
+        <div id="image"></div>
+        <button  class="button1" onclick="addToCart(`${modalid.innerText}`,`${modalTitle.innerText}`,`${modalPrice.innerText}`, `${image.innerHTML}`)">
+            <i style="color: #fff;" class="fa-solid fa-cart-shopping"></i> Add To Cart
+        </button>
+        <button class="button2"><i style="color: #fff;" class="fa-solid fa-bolt"></i>Buy Now</button>
+    </div>
+    <div class="2"> 
+    <h2 id="modalid"></h2>     
+    <h2 id="modalTitle"></h2>
+    <p id="modalDescription"></p>
+    <p id="modalPrice"></p>
+    <p id="modalCategory"></p>
+    <p>Discount: <span id="discount"></span></p>
+    <p>Rating: <span id="modalrating"></span></p>
+    <p>Stock: <span id="modalStock"></span></p>
+    <p>Tags: <span id="modaltags"></span></p>
+    <p>Brand: <span id="modalbrand"></span></p>
+    <p>Dimensions: <span id="modaldimensions"></span></p>
+   
+</div>
+<div>
+    <button onclick="closeModal()" style="color: black;">X</button>
+</div>
+</div>
+</div>
+<div id="itemsContainer"></div>
+    <div class="carousel">
+        <div class="carousel-images">
+            <img src="new1.webp" alt="Image 1" class="active">
+            <img src="new2.webp" alt="Image 2">
+            <img src="new3.webp" alt="Image 3">
+            <img src="new4.webp" alt="Image 4">
+            <img src="new5.webp" alt="Image 5">
+            <img src="new6.webp" alt="Image 6">
+            <img src="new7.webp" alt="Image 7">
+
+        </div>
+    </div>
+    <div class="best" >
+        <img src="best1.webp" style="width: 100%;">
+    </div>
+    <div class="best"  style="width: 100%;" >
+        <img src="best2.webp">
+        <img src="best3.webp">
+        <img src="best4.webp">
+    </div>
+    <div class="best">
+        <img src="best5.webp">
+        <img src="best6.webp">
+        <img src="best7.webp">
+    </div>
+    <div class="container" id="productBody"></div>
+    <script>
+          function toggleSpinner(show) {
+            const spinner = document.getElementById('spinner');
+            if (show) {
+                spinner.style.display = 'block';
+            } else {
+                spinner.style.display = 'none';
+            }
+        }
+
+        async function getText(url) {
+            try {
+                toggleSpinner(true);
+                let response = await fetch(url);
+                let data = await response.json();
+                console.log('Fetched data:', data);   
+        
+                const productBody = document.getElementById("productBody");
+                productBody.innerHTML = '';
+        
+                data.products.forEach(product => { 
+                    const div = document.createElement('div');
+                    div.className = 'product'; 
+                    div.innerHTML = `
+                        <div class="product-content" onclick="showDetails(${product.id})">
+                            <h4>ID: ${product.id}</h4>
+                            <h2>${product.title}</h2>
+                             <div class="images">
+                                ${product.images.map(image => `
+                                    <div class="image-container">
+                                        <div class="image-spinner spinner"></div>
+                                        <br>
+                                        <img src="${image}" alt="${product.title}" style="max-width: 100px; max-height: 100px; margin: 5px;" onload="hideSpinner(this)">
+                                    </div>
+                                `).join('')}
+                            </div><br>
+                            <br>
+                            <br>
+                            <h3>Price: $${product.price}</h3>
+                            <h3>Discount: ${product.discountPercentage}%</h3>
+                    `;
+                    productBody.appendChild(div);
+                });
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                const productBody = document.getElementById("productBody");
+                productBody.innerHTML = '<p>Failed to load products. Please try again later.</p>';
+            } finally {
+                toggleSpinner(false); 
+            }
+        }
+        function hideSpinner(imgElement) {
+            const container = imgElement.parentElement;
+            const spinner = container.querySelector('.image-spinner');
+            spinner.style.display = 'none'; 
+        }
+        getText("https://dummyjson.com/products");
+
+        //img transformation
+
+        let currentIndex = 0;
+const images = document.querySelectorAll('.carousel-images img');
+function showNextImage() {
+    images[currentIndex].classList.remove('active');
+    currentIndex++;
+    if (currentIndex >= images.length) {
+        currentIndex = 0;
+    }
+    images[currentIndex].classList.add('active');
+    updateCarouselPosition();
+}
+function updateCarouselPosition() {
+    const offset = -currentIndex * 100; 
+    document.querySelector('.carousel-images').style.transform = `translateX(${offset}%)`;
+}
+setInterval(showNextImage, 2000);
+
+
+//searchbar
+document.getElementById('searchButton').addEventListener('click', searchAPI);
+async function searchAPI() {
+    const query = document.getElementById('searchInput').value;
+    const apiUrl = `https://dummyjson.com/products`; 
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        displayResults(data.products, query);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        document.getElementById('results').innerText = 'Error fetching data';
+    }
+}
+function displayResults(products, query) {
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = '';
+
+    const filteredProducts = products.filter(product => 
+        product.title.toLowerCase().includes(query.toLowerCase()) ||
+        (product.tags && product.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))) || 
+        product.category.toLowerCase().includes(query.toLowerCase()) ||
+        product.id.toString().toLowerCase().includes(query.toLowerCase()) 
+    );
+
+    if (filteredProducts.length > 0) {
+        filteredProducts.forEach(product => {
+            const div = document.createElement('div');
+            div.innerHTML = `
+                <div class="product-content" onclick="showDetails(${product.id})">
+                            <h4>ID: ${product.id}</h4>
+                            <h2>${product.title}</h2>
+                            <div class="images">
+                                ${product.images.map(image => `
+                                    <div class="image-container">
+                                        <div class="image-spinner spinner" style="margin-left: 5px;"></div>
+                                        <br>
+                                        <img src="${image}" alt="${product.title}" style="max-width: 100px; max-height: 100px; margin: 5px;" onload="hideSpinner(this)">
+                                    </div>
+                                `).join('')}
+                            </div><br>
+                            <br>
+                            <br>
+                            <h3>Price: $${product.price}</h3>
+                            <h3>Discount: ${product.discountPercentage}%</h3>
+                            <h3>Tags: ${product.tags}</h3>
+                        </div>
+            `; 
+            resultsDiv.appendChild(div);
+        });
+    } else {
+        resultsDiv.innerText = 'No results found';
+    }
+}
+
+
+const apiEndpoint = 'https://dummyjson.com/products';
+
+
+
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

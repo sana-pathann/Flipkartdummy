@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <title>Furniture</title>
+</head>
+<body>
+    <style>
+        nav{
+            position: absolute;
+            height: 60px;
+            width: 100%;
+            left: -40px;
+            top: 0px;
+            background-color:#2874f0;
+        }
+        nav img{
+            height: 30px;
+            width: 70px;
+            margin-left: 30px;
+        }
+        i{
+            border-radius: 0px;
+        }
+        .modal-content{
+            display: flex;
+            gap: 100px;
+    
+        }
+        .button1{
+            font-weight: bold;
+            width: 200px;
+            height: 50px;
+            background-color: #ff9f00;
+            margin-bottom: 5px;
+        }
+        .button2{
+            font-weight: bold;
+            width: 200px;
+            height: 50px;
+            background-color: #fb641b;
+        }
+        
+    </style>
+        <nav>
+            <div class="bar"><img src="flipkart-plus_8d85f4.png"></div>
+            <div style="background-color: #fff;"class="barr"></i>  <input  placeholder="Search for Products, Brand and More" style="font-size: 20px;"><i class="fa-solid fa-magnifying-glass" style="color: gray;"></i></div>
+            <div style=" color: #fff;" class="bar"> <i style="color: #fff;" class="fa-solid fa-user"></i>  Login</div>
+            <div style="color: #fff;" class="bar" onclick="cart()"><i style="color: #fff;" class="fa-solid fa-cart-shopping"></i>  Cart</div>
+            <div style="color: #fff;" class="bar"><i style="color: #fff;" class="fa-solid fa-shop"></i>  Become a Seller</div>
+            <div style="color: #fff;" class="vertical-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <div></div>
+        </nav>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="cate" style="box-shadow: gray;">
+        <h1 style="margin-left: 400px;" onclick="el()">Electronics</h1>
+        <h1 onclick="fur()">Furniture</h1>
+        <h1 onclick="gr()">Grocery</h1>
+        <h1 onclick="fr()">Fragrances</h1>
+        <h1 onclick="b()">Beauty</h1>
+    </div>
+    <img src="f111.webp" style="width: 100%;">
+    <img src="f22.webp" style="width: 100%;">
+    <img src="f33.webp" style="width: 100%;">
+    <h1>Furniture</h1>
+    <div id="productBody"></div>
+    <div id="modal" class="modal" style="display: none;  background-color: #fff; width:100%;  margin-top: 100px;">
+ 
+        <div id="modalContent" style="display:flex; gap: 100px; padding: 200px;"  >
+    <div class="1" style="display: flex; flex-direction: column; ">
+        <div id="image"></div>
+        <button class="button1"><i style="color: #fff;" class="fa-solid fa-cart-shopping"></i> Add To Cart</button>
+        <button class="button2"><i style="color: #fff;" class="fa-solid fa-bolt"></i>Buy Now</button>
+    </div>
+    <div class="2">  
+    <h2 id="modalTitle"></h2>
+    <p id="modalDescription"></p>
+    <p id="modalPrice"></p>
+    <p id="modalCategory"></p>
+    <p>Discount: <span id="discount"></span></p>
+    <p>Rating: <span id="modalrating"></span></p>
+    <p>Stock: <span id="modalStock"></span></p>
+    <p>Tags: <span id="modaltags"></span></p>
+    <p>Brand: <span id="modalbrand"></span></p>
+    <p>Dimensions: <span id="modaldimensions"></span></p>
+    <button onclick="closeModal()">Close</button></div>
+    </div>
+</div>
+    <script>
+        
+        async function getText(url) {
+            try {
+                let response = await fetch(url);
+                let data = await response.json();
+                console.log('Fetched data:', data);
+
+                const productBody = document.getElementById("productBody");
+                productBody.innerHTML = '';
+
+                data.products.forEach(product => {
+                    const div = document.createElement('div');
+                    div.className = 'product'; 
+                    div.innerHTML = `
+                       <div class="product-content" onclick="showDetails(${product.id})">
+                            <h4>ID: ${product.id}</h4>
+                            <h2>${product.title}</h2>
+                            <div class="images">
+                                ${product.images.map(image => `<img src="${image}" alt="${product.title}" style="max-width: 100px; max-height: 100px; margin: 5px;">`).join('')}
+                            </div>
+                            <!-- <p>Description: ${product.description}</p>
+                            <h3>Category: ${product.category}</h3> -->
+                            <h3>Price: $${product.price}</h3>
+                            <h3>Discount: ${product.discountPercentage}%</h3>
+                            <!-- <h3>Rating: ${product.rating}</h3>
+                            <h3>Stock: ${product.stock}</h3> -->
+                            <!-- <button onclick="showDetails(${product.id})">Know More</button>  -->
+                        </div>
+                    `;
+                    productBody.appendChild(div);
+                });
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                const productBody = document.getElementById("productBody");
+                productBody.innerHTML = '<p>Failed to load products. Please try again later.</p>';
+            }
+        }
+
+       
+        getText("https://dummyjson.com/products/category/furniture");
+    </script>
+    <script src="script.js"></script>
+    
+</body>
+</html>

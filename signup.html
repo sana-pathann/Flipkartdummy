@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <title>Sign Up</title>
+    <style>
+        /* CSS styles */
+        #email, #phone, #username, #password {
+            display: none;
+        }
+        #email {
+            display: block;
+        }
+        #btn2, #btn3, #btn4 {
+            display: none;
+        }
+        .sign {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-left: 252px;
+        }
+        .signup {
+            margin-top: -100px;
+        }
+        button {
+            width: 400px;
+            height: 60px;
+            border: none;
+            background-color: #ff9f00;
+        }
+        .input {
+            width: 400px;
+            height: 60px;
+            border-color: gray;
+            margin-bottom: 30px;
+        }
+        .alert {
+            color: red;
+            margin-bottom: 20px;
+        }
+        .success-alert {
+            font-size: 40px;
+            font-weight: bold;
+            display: none;
+            background-color: #a7bbdc;
+            color: #fff;
+            padding: 19px;
+            margin-bottom: 20px;
+            border: 1px solid #a7bbdc;
+            border-radius: 5px;
+            text-align: center;
+            flex-direction: column;
+            width: 400px;
+            height: 200px;
+            padding-top: 40px;
+        }
+        .success-alert button {
+            margin-top: 60px;
+            width: 170px;
+            background-color: #2874f0;
+            color: white;
+            border-radius: 3px;
+        }
+        nav {
+            position: absolute;
+            height: 60px;
+            width: 100%;
+            left: -40px;
+            top: 0px;
+            background-color: #2874f0;
+        }
+        nav img {
+            height: 30px;
+            width: 70px;
+            margin-left: 150px;
+        }
+    </style>
+</head>
+<body>
+    <nav style="background-color: #2874f0;">
+        <div class="bar"><img src="flipkart-plus_8d85f4.png"></div>
+        <div style="background-color: #fff; border-radius: 3px;" class="barr">
+            <input placeholder="Search for Products, Brand and More" style="font-size: 20px;">
+            <i class="fa-solid fa-magnifying-glass" style="color: gray;"></i>
+        </div>
+        <div  onclick="redirectToLogin()" style="color: #fff; border-radius: 3px;" class="bar" ><i class="fa-solid fa-user"></i> Login</div>
+        <div class="bar" style="color: #fff;">More</div>
+        <div style="color: #fff;" class="bar"><i class="fa-solid fa-cart-shopping"></i> Cart</div>
+    </nav>
+    <br>
+    <div class="sign" style="margin-top: 50px;">
+        <img src="Screenshot 2024-10-25 233557.png">
+        <div class="signup">
+            <h1 id="hedng">Sign Up</h1>
+            <input class="input" type="email" id="email" placeholder="Enter Email Address" required>
+            <p id="alert" class="alert" style="display: none;">Enter a valid Email Address!</p>
+            <input class="input" type="number" id="phone" placeholder="Enter Phone Number" required>
+            <p id="phoneAlert" class="alert" style="display: none;">Enter a valid Phone Number!</p>
+            <input class="input" id="username" placeholder="Create Username" required>
+            <p id="usernameAlert" class="alert" style="display: none;"></p>
+            <input class="input" type="password" id="password" placeholder="Create Password" required>
+            <p id="passwordAlert" class="alert" style="display: none;">Password must be at least 8 characters long!</p>
+            <button id="btn1">Next</button>
+            <button id="btn2">Next</button>
+            <button id="btn3">Next</button>
+            <button id="btn4">Next</button>
+            <div id="successAlert" class="success-alert">
+                Data saved successfully!
+                <br>
+                <button onclick="redirectToLogin()" id="dis" style="margin-left: 120px ;">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('btn1').addEventListener('click', Next1);
+        document.getElementById('btn2').addEventListener('click', Next2);
+        document.getElementById('btn3').addEventListener('click', Next3);
+        document.getElementById('btn4').addEventListener('click', Next4);
+
+        function getUserData() {
+            const data = localStorage.getItem('userData');
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveUserData(userData) {
+            localStorage.setItem('userData', JSON.stringify(userData));
+        }
+
+        function toggleDisplay(hideId, showId, hideBtnId, showBtnId) {
+            document.getElementById(hideId).style.display = 'none';
+            document.getElementById(showId).style.display = 'block';
+            document.getElementById(hideBtnId).style.display = 'none';
+            document.getElementById(showBtnId).style.display = 'block';
+        }
+
+        function Next1() {
+            const emailInput = document.getElementById('email').value;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const alertDiv = document.getElementById('alert');
+
+            if (!emailPattern.test(emailInput)) {
+                alertDiv.style.display = 'block'; // Show email alert
+            } else {
+                alertDiv.style.display = 'none'; // Hide email alert
+                const userData = getUserData();
+                const existingEmail = userData.find(user => user.email === emailInput);
+
+                if (existingEmail) {
+                    showAlert(alertDiv, 'Email already exists!');
+                } else {
+                    userData.push({ email: emailInput }); // Add new user object
+                    saveUserData(userData);
+                    toggleDisplay('email', 'phone', 'btn1', 'btn2');
+                }
+            }
+        }
+
+        function Next2() {
+            const phoneInput = document.getElementById('phone').value;
+            const phonePattern = /^\d{10}$/;
+            const phoneAlert = document.getElementById('phoneAlert');
+
+            if (!phonePattern.test(phoneInput)) {
+                phoneAlert.style.display = 'block'; // Show phone alert
+            } else {
+                phoneAlert.style.display = 'none'; // Hide phone alert
+                const userData = getUserData();
+                const lastUser = userData[userData.length - 1];
+
+                if (lastUser.phone) {
+                    showAlert(phoneAlert, 'Phone number already exists!');
+                } else {
+                    lastUser.phone = phoneInput; // Save phone to last user
+                    saveUserData(userData);
+                    toggleDisplay('phone', 'username', 'btn2', 'btn3');
+                }
+            }
+        }
+
+        function Next3() {
+            const usernameInput = document.getElementById('username').value;
+            const usernameAlert = document.getElementById('usernameAlert');
+            const userData = getUserData();
+            const lastUser = userData[userData.length - 1];
+
+            if (usernameInput.trim() === '') {
+                usernameAlert.innerText = 'Username cannot be empty!';
+                usernameAlert.style.display = 'block';
+            } else if (userData.find(user => user.username === usernameInput)) {
+                usernameAlert.innerText = 'Username already exists!';
+                usernameAlert.style.display = 'block';
+            } else {
+                usernameAlert.style.display = 'none'; // Hide username alert
+                lastUser.username = usernameInput; // Save username to last user
+                saveUserData(userData);
+                toggleDisplay('username', 'password', 'btn3', 'btn4');
+            }
+        }
+
+        function Next4() {
+            const passwordInput = document.getElementById('password').value;
+            const passwordAlert = document.getElementById('passwordAlert');
+            const successAlert = document.getElementById('successAlert');
+            const userData = getUserData();
+            const lastUser = userData[userData.length - 1];
+
+            if (passwordInput.length < 8) {
+                passwordAlert.style.display = 'block'; // Show password alert
+                passwordAlert.textContent = 'Password must be at least 8 characters long.'; // Provide feedback
+            } else {
+                passwordAlert.style.display = 'none'; // Hide password alert
+                lastUser.password = passwordInput; // Save password to last user
+                saveUserData(userData);
+                document.querySelectorAll('.input').forEach(input => input.style.display = 'none');
+                document.querySelectorAll('button').forEach(button => button.style.display = 'none');
+                document.getElementById('dis').style.display = 'block';
+                document.getElementById('hedng').style.display = 'none';
+                successAlert.style.display = 'block'; // Show success alert
+            }
+        }
+
+        function showAlert(alertDiv, message) {
+            alertDiv.innerText = message;
+            alertDiv.style.display = 'block';
+        }
+
+        
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
