@@ -1,163 +1,213 @@
-body{
+/* Base Styles */
+body {
     border: 1px solid #ddd;
     background-color: #fff;
-    
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
+
+/* Product Grid */
 #productBody {
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     gap: 10px;
     border: 1px solid #ddd;
     background-color: #fff;
+    justify-content: center;
+    padding: 10px;
 }
-button{
+
+/* Button Reset */
+button {
     border: none;
     color: #fff;
+    cursor: pointer;
 }
+
+/* Product Card */
 .product {
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 10px;
-    width: 345px;
+    width: 100%;
+    max-width: 345px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+    box-sizing: border-box;
 }
+
+/* Content Layout */
 .product-content {
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
+    flex-direction: column;
+    align-items: center;
 }
+
+/* Image Grid */
 .images {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; 
-}
-h1{
-    display: flex;
     justify-content: center;
 }
+
+/* Header */
+h1 {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+/* Modal */
 .modal {
     display: none;
     position: fixed;
     z-index: 1;
     left: 0;
-    top: -100px;
+    top: 0;
     width: 100%;
-    height: 100%;  
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
 }
+
 .modal-content {
-    border: 1px solid #ddd;
-    background-color: #fff;;
-    margin: 15% auto;
+    background-color: #fff;
+    margin: 10% auto;
     padding: 20px;
-    width: 60%;   
+    border: 1px solid #ddd;
+    width: 90%;
+    max-width: 600px;
 }
+
 .close {
     color: black;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
-.close:hover{
+
+.close:hover {
     color: red;
     cursor: pointer;
 }
-nav{
-    margin-left: 40px;
-        display: flex;
-        gap: 40px;
-        font-size: 20px;
-        align-items: center;
-        background-color: #fff;
-        }
- i{
-            margin-right: 10px ;
-  }
-.dot {
-            width: 6px;
-            height: 6px;
-            background-color: #333;
-            border-radius: 92%;
-            margin: 1px 0;
-            margin-left: 100px;
- }
- input{
-    border-radius: 5px;
-    width: 560px;
-    height: 30px;
-    border: none;
-    background-color:azure;
+
+/* Navigation */
+nav {
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 18px;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px;
 }
-i{
-    margin-right: 10px ;
+
+/* Icons */
+i {
+    margin-right: 10px;
 }
+
+/* Dot Indicator */
 .dot {
     width: 6px;
     height: 6px;
-    background-color: #fff;
-    border-radius: 92%;
-    margin: 1px 0;
-    margin-left: 160px;
-    margin-right: 0px;
+    background-color: #333;
+    border-radius: 50%;
+    margin: 1px;
 }
-.cat{
-    display: flex;
+
+/* Input Field */
+input {
+    border-radius: 5px;
+    width: 100%;
+    max-width: 560px;
+    height: 30px;
+    border: none;
+    background-color: azure;
+    padding: 5px 10px;
+}
+
+/* Categories Row */
+.cat {
+    
+    flex-wrap: wrap;
     align-items: center;
-    gap: 100px;
-    margin-left: 400px;
-    margin-top: 30px;
-}
-.beauty{
-    display: flex;
-flex-direction: column; 
-align-items: center;
-cursor: pointer; 
+    gap: 20px;
+    justify-content: center;
+   
 
 }
-img:hover{
-    cursor: pointer; 
-}
-select{
-    height: 40px;
-    border: none;
-    background-color:#2874f0;;
-    color: #fff;
-    border-radius: 3px;
-}
-.cate{
-    width: 100%;
-    height: 40px;
+
+.beauty {
     display: flex;
-    gap: 70px;
+    flex-direction: column;
     align-items: center;
-    font-size: 10px;  
-}
-.cate:hover{
     cursor: pointer;
 }
-.on:hover{
-     color: red;
-     cursor: pointer;
+
+/* Images */
+img:hover {
+    cursor: pointer;
 }
-.button1{
+
+/* Dropdown */
+select {
+    height: 40px;
+    border: none;
+    background-color: #2874f0;
+    color: #fff;
+    border-radius: 3px;
+    padding: 0 10px;
+}
+
+/* Category Items */
+.cate {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 20px;
+    margin-top: -60px;
+    justify-content: center;
+   
+}
+
+.cate:hover {
+    cursor: pointer;
+}
+
+/* Hover Effect */
+.on:hover {
+    color: red;
+    cursor: pointer;
+}
+
+/* Buttons */
+.button1,
+.button2,
+.button3 {
     font-weight: bold;
-    width: 200px;
+    width: 100%;
+    max-width: 200px;
     height: 50px;
-    background-color: #ff9f00;
     margin-bottom: 5px;
+    color: #fff;
+    border: none;
 }
-.button2{
-    font-weight: bold;
-    width: 200px;
-    height: 50px;
+
+.button1 {
+    background-color: #ff9f00;
+}
+
+.button2,
+.button3 {
     background-color: #fb641b;
 }
-.button3{
-    font-weight: bold;
-    width: 200px;
-    height: 50px;
-    background-color: #fb641b;
-}
+
+/* Spinner */
 .spinner {
     border: 4px solid #f3f3f3;
     border-top: 4px solid #3498db;
@@ -165,7 +215,7 @@ select{
     width: 40px;
     height: 40px;
     animation: spin 1s linear infinite;
-    display: none; /* Hide spinner by default */
+    display: none;
     margin: 20px auto;
 }
 
@@ -173,6 +223,8 @@ select{
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+/* Image Container with Spinner */
 .image-container {
     position: relative;
     display: inline-block;
@@ -181,7 +233,6 @@ select{
     margin: 5px;
 }
 
-/* Spinner inside the image container */
 .image-spinner {
     position: absolute;
     top: 50%;
@@ -190,7 +241,53 @@ select{
     display: block;
 }
 
-/* Hide the image spinner when the image is loaded */
 .image-container img {
     display: block;
+    max-width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cat {
+        margin: 20px;
+        gap: 20px;
+        flex-direction: column;
+    }
+
+    .cate {
+        gap: 15px;
+        font-size: 12px;
+        
+    }
+
+    .product {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    input {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .modal-content {
+        width: 90%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    .button1,
+    .button2,
+    .button3 {
+        width: 100%;
+        max-width: 100%;
+    }
 }

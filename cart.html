@@ -8,78 +8,193 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <style>
-    nav{
-        margin-left: 0px;
-        margin-top: -10px;
-        width: 100%;
-        height: 50px;
-        position: fixed;
-    }
-    nav img{
-        height: 30px;
-        width: 70px;
-        margin-left: 200px;
-    }
-    #cartItems{
-        margin-left: 110px;
-        gap: 10px;
-        background-color: #ddd;
-        width: 800px;
-        padding: 20px;
-    }
-    #add{
-       
-        top: 200px;
-        padding-top: 50px;
-        padding: 20px;
-        height:310px;
-        width: 460px;
-      
-    }
-    .remove-button {
-        background-color: #e74c3c;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-        border-radius: 5px;
-        margin-top: 10px;
-       
-    }
+   /* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
 
-    .remove-button:hover {
-        background-color: #c0392b;
-    }
-    .it{
-        border-top: 2px #fff;
-    }
+body {
+  padding-top: 70px; /* To avoid nav overlap */
+}
+
+/* === Navbar === */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #2874f0;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  z-index: 1000;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Logo */
+.bar img {
+  height: 30px;
+  cursor: pointer;
+}
+
+/* Search box */
+.barr {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 5px 10px;
+  flex-grow: 1;
+  max-width: 600px;
+}
+
+.barr input {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  flex-grow: 1;
+}
+
+.barr i {
+  color: #2874f0;
+  font-size: 1rem;
+  margin-left: 10px;
+}
+
+/* Nav Login */
+.bar {
+  color: #fff;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+/* === Main Cart Layout === */
+h1 {
+  font-size: 2rem;
+  margin: 1rem 1.5rem;
+}
+
+.cart-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 1.5rem;
+  justify-content: center;
+}
+
+/* Cart Items List */
+#cartItems {
+  flex: 1 1 60%;
+  min-width: 300px;
+}
+
+/* Price Summary Box */
+#add {
+  flex: 1 1 300px;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+#add h3 {
+  color: gray;
+  margin-bottom: 1rem;
+}
+
+#add h5 {
+  margin: 10px 0;
+  font-weight: 500;
+}
+
+.button2 {
+  margin-top: 1rem;
+  background-color: #fb641b;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 9px;
+  font-weight: bold;
+  font-size: 1rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .barr {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .bar {
+    justify-content: flex-start;
+  }
+
+  .cart-container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  #add {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .button2 {
+    font-size: 0.95rem;
+  }
+
+  .barr input {
+    font-size: 0.9rem;
+  }
+}
+
 </style>
 <body>
- 
-    <nav style="background-color: #2874f0;">
-        <div class="bar" onclick="home()"><img src="flipkart-plus_8d85f4.png" alt="Logo"></div>
-        <div style="background-color: #fff; margin-left: 60px; border-radius: 3px;" class="barr">
-            <input placeholder="Search for Products, Brand and More" style="font-size: 20px;">
-            <i class="fa-solid fa-magnifying-glass" style="color:#2874f0;"></i>
-        </div>
-        <div onclick="redirectToLogin()" style="color: #fff; margin-left: 60px;" class="bar">
-            <i style="color: #fff;" class="fa-solid fa-user"></i> Login
-        </div>
-        <div></div>
-    </nav><br>
-    
-    <h1>My Cart</h1>
-    <div style="display: flex; gap: 30px;">
-        <div id="cartItems"></div>
-        <div id="add" style="font-size: 20px; background-color: #ddd;">
-            <h3 style="color: gray;">PRICE DETAILS</h3>
-            <h5>Total Items: <span id="totalItems">0</span></h5>
-            <h5>Total Discount: <span id="totalDiscount">$0.00</span></h5>
-            <h5>Delivery Charges: Free</h5>
-            <h5>Total Amount: <span id="totalAmount">$0.00</span></h5>
-            <button class="button2" style="width: 100%; border-radius: 9px;">Buy Now</button>
-        </div>
-    </div>
+ <nav>
+  <div class="bar" onclick="home()">
+    <img src="flipkart-plus_8d85f4.png" alt="Logo">
+  </div>
+  <div class="barr">
+    <input placeholder="Search for Products, Brand and More">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </div>
+  <div class="bar" onclick="redirectToLogin()">
+    <i class="fa-solid fa-user"></i> Login
+  </div>
+</nav>
+
+<h1>My Cart</h1>
+
+<div class="cart-container">
+  <div id="cartItems"></div>
+  <div id="add">
+    <h3>PRICE DETAILS</h3>
+    <h5>Total Items: <span id="totalItems">0</span></h5>
+    <h5>Total Discount: <span id="totalDiscount">$0.00</span></h5>
+    <h5>Delivery Charges: Free</h5>
+    <h5>Total Amount: <span id="totalAmount">$0.00</span></h5>
+    <button class="button2">Buy Now</button>
+  </div>
+</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

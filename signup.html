@@ -7,92 +7,236 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <title>Sign Up</title>
     <style>
-        /* CSS styles */
-        #email, #phone, #username, #password {
-            display: none;
-        }
-        #email {
-            display: block;
-        }
-        #btn2, #btn3, #btn4 {
-            display: none;
-        }
-        .sign {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            margin-left: 252px;
-        }
-        .signup {
-            margin-top: -100px;
-        }
-        button {
-            width: 400px;
-            height: 60px;
-            border: none;
-            background-color: #ff9f00;
-        }
-        .input {
-            width: 400px;
-            height: 60px;
-            border-color: gray;
-            margin-bottom: 30px;
-        }
-        .alert {
-            color: red;
-            margin-bottom: 20px;
-        }
-        .success-alert {
-            font-size: 40px;
-            font-weight: bold;
-            display: none;
-            background-color: #a7bbdc;
-            color: #fff;
-            padding: 19px;
-            margin-bottom: 20px;
-            border: 1px solid #a7bbdc;
-            border-radius: 5px;
-            text-align: center;
-            flex-direction: column;
-            width: 400px;
-            height: 200px;
-            padding-top: 40px;
-        }
-        .success-alert button {
-            margin-top: 60px;
-            width: 170px;
-            background-color: #2874f0;
-            color: white;
-            border-radius: 3px;
-        }
-        nav {
-            position: absolute;
-            height: 60px;
-            width: 100%;
-            left: -40px;
-            top: 0px;
-            background-color: #2874f0;
-        }
-        nav img {
-            height: 30px;
-            width: 70px;
-            margin-left: 150px;
-        }
+/* === Base Reset === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #f4f4f4;
+  padding-top: 70px;
+}
+
+/* === Navbar === */
+nav {
+  background-color: #2874f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  flex-wrap: wrap;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+nav img {
+  height: 30px;
+  cursor: pointer;
+}
+
+.barr {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 5px 10px;
+  flex-grow: 1;
+  max-width: 500px;
+  margin: 10px 20px;
+}
+
+.barr input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  flex-grow: 1;
+  background: transparent;
+}
+
+.barr i {
+  color: gray;
+  margin-left: 10px;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  gap: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* === Signup Layout === */
+.sign {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 2rem;
+
+}
+
+.signup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  height: 50px;
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.alert {
+  color: red;
+  font-size: 14px;
+  text-align: left;
+  width: 100%;
+}
+
+/* === Success Alert Box === */
+.success-alert {
+  font-size: 18px;
+  font-weight: bold;
+  display: none;
+  background-color: #a7bbdc;
+  color: #fff;
+  padding: 20px;
+  border: 1px solid #a7bbdc;
+  border-radius: 5px;
+  text-align: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+}
+
+.success-alert button {
+  margin-top: 20px;
+  width: 150px;
+  background-color: #2874f0;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+}
+
+/* === Buttons === */
+button {
+  width: 100%;
+  height: 50px;
+  background-color: #ff9f00;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #f08800;
+}
+
+/* === Input Visibility Control === */
+#email, #phone, #username, #password {
+  display: none;
+}
+
+#email {
+  display: block;
+}
+
+#btn2, #btn3, #btn4 {
+  display: none;
+}
+
+/* === Responsive Breakpoints === */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .barr {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .bar {
+    margin-left: 0;
+    padding: 6px 0;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .sign {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .signup {
+    margin-top: 0;
+  }
+
+  .input,
+  button,
+  .success-alert {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .barr input {
+    font-size: 14px;
+  }
+
+  .bar {
+    font-size: 13px;
+  }
+
+  .signup h1 {
+    font-size: 1.5rem;
+  }
+}
+
     </style>
 </head>
 <body>
-    <nav style="background-color: #2874f0;">
-        <div class="bar"><img src="flipkart-plus_8d85f4.png"></div>
-        <div style="background-color: #fff; border-radius: 3px;" class="barr">
-            <input placeholder="Search for Products, Brand and More" style="font-size: 20px;">
-            <i class="fa-solid fa-magnifying-glass" style="color: gray;"></i>
-        </div>
-        <div  onclick="redirectToLogin()" style="color: #fff; border-radius: 3px;" class="bar" ><i class="fa-solid fa-user"></i> Login</div>
-        <div class="bar" style="color: #fff;">More</div>
-        <div style="color: #fff;" class="bar"><i class="fa-solid fa-cart-shopping"></i> Cart</div>
-    </nav>
+    <nav>
+  <div class="bar"><img src="flipkart-plus_8d85f4.png" alt="Logo"></div>
+
+  <div class="barr">
+    <input placeholder="Search for Products, Brand and More">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </div>
+
+  <div class="bar" onclick="redirectToLogin()">
+    <i class="fa-solid fa-user"></i> Login
+  </div>
+
+  <div class="bar">More</div>
+
+  <div class="bar">
+    <i class="fa-solid fa-cart-shopping"></i> Cart
+  </div>
+</nav>
+
     <br>
-    <div class="sign" style="margin-top: 50px;">
+    <div class="sign" >
         <img src="Screenshot 2024-10-25 233557.png">
         <div class="signup">
             <h1 id="hedng">Sign Up</h1>
